@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>6CM1</title>
+    <style>
+        /* Estilos CSS para la página */
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            background-image: url('https://img.freepik.com/vector-premium/fondo-acuarela-colores_521516-1.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .logo-esime {
+            width: 200px;
+        }
+
+        h1, h2, h3 {
+            text-align: center;
+        }
+
+        p {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <img class="logo-esime" src="https://www.esimetic.ipn.mx/assets/files/esimetic/img/conocenos/LogoEsime.png" alt="Logo ESIME">
+    <h1>PROYECTO MICROPROCESADORES 6CM1</h1>
+    <h2>"SENSOR DE TEMPERATURA Y GPS"</h2>
+    <h3>-SALAZAR CERVANTES EDGAR YAEL-</h3>
+
+    <p></p>
+    <font size="7">
+        <!-- Mostrar los datos recibidos -->
+        <p id="temp">
+            <span id="temp-symbol">&#8451;</span> <!-- Símbolo para la temperatura -->
+        </p>
+        <p id="pressure">
+            <span id="pressure-symbol">&#128167;</span> <!-- Símbolo para la presión -->
+        </p>
+        <p id="humidity">
+            <span id="humidity-symbol">&#128167;</span> <!-- Símbolo para la humedad -->
+        </p>
+        <p id="latitude">
+            <span id="latitude-symbol">&#128205;</span> <!-- Símbolo para la latitud -->
+        </p>
+        <p id="longitude">
+            <span id="longitude-symbol">&#128206;</span> <!-- Símbolo para la longitud -->
+        </p>
+    </font>
+
+    <!-- Cargar el script de socket.io -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.1/socket.io.js"></script>
+    <script>
+        // Conectar al servidor mediante socket.io
+        var socket = io();
+
+        // Escuchar el evento 'data' desde el servidor
+        socket.on('data', function (data) {
+            // Mostrar los datos recibidos en la página
+            document.getElementById("temp").innerHTML = "Temperatura: " + data.temp; // Mostrar temperatura con símbolo
+            document.getElementById("pressure").innerHTML = "Presion: " + data.pressure + "<span id='pressure-symbol'>&#128167;</span>"; // Mostrar presión con símbolo
+            document.getElementById("humidity").innerHTML = "Humedad: " + data.humidity + "<span id='humidity-symbol'>&#128167;</span>"; // Mostrar humedad con símbolo
+            document.getElementById("latitude").innerHTML = "Latitud: " + data.latitude + "<span id='latitude-symbol'>&#128205;</span>"; // Mostrar latitud con símbolo
+            document.getElementById("longitude").innerHTML = "Longitud: " + data.longitude + "<span id='longitude-symbol'>&#128206;</span>"; // Mostrar longitud con símbolo
+        });
+    </script>
+</body>
+</html>
